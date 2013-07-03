@@ -42,3 +42,8 @@ Files included in this distribution
 3) `Key.sh`, a shell script that will generate a public and private key pair, as well as a PKCS12 file which contains user's private key and certificate on UNIX. Just run "key.sh <basename>" and it will generate basename-prvkey.pem, basename-pubcert.pem and basename-prvkey.p12.
 
 4) sbt project files to build with Scala 2.10.2
+
+Important
+---------
+
+See [Securing Your PayPal Payments Standard Buttons](https://developer.paypal.com/webapps/developer/docs/classic/paypal-payments-standard/integration-guide/encryptedwebpayments/#id08A3I0MK05Z)
