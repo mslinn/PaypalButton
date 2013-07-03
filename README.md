@@ -4,8 +4,7 @@ An OpenSSL distribution is required for this Java client to work, available from
 
 Package Installation
 ---------------------
-* Install OpenSSL binaries. Follow the installation instruction for OpenSSL which is available at http://www.openssl.org
-* Use key.bat (for Windows) or key.sh (for UNIX) to generate public and private key pair, as well as a PKCS12 file which contains user's private key and certificate.
+* Use key.bat (for Windows) or key.sh (for UNIX) to generate public and private key pair, as well as a PKCS12 file which contains the user's private key and certificate.
 
 Building the ButtonEncryption Application
 ------------------------------------------
