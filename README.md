@@ -46,4 +46,4 @@ Files included in this distribution
 Important
 ---------
 
-See [Securing Your PayPal Payments Standard Buttons](https://developer.paypal.com/webapps/developer/docs/classic/paypal-payments-standard/integration-guide/encryptedwebpayments/#id08A3I0MK05Z)
+See [Using Encrypted Website Payments to Protect Your Payment Buttons](https://developer.paypal.com/webapps/developer/docs/classic/paypal-payments-standard/integration-guide/encryptedwebpayments/#id08A3I0QC0X4)
