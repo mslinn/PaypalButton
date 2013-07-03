@@ -1,19 +1,12 @@
 package com.paypal.crypto.sample;
 
-import org.bouncycastle.cms.CMSException;
-
 import java.io.*;
 import java.security.*;
 import java.security.cert.CertStoreException;
 import java.security.cert.CertificateException;
+import org.bouncycastle.cms.CMSException;
 
 public class ButtonEncryption {
-    private static String keyPath  = null;
-    private static String certPath = null;
-    private static String paypalCertPath = null;
-    private static String keyPass  = "password";
-    private static String cmdText  = null;       //cmd=_xclick,business=sample@paypal.com,amount=1.00,currency_code=USD
-    private static String output   = "test.html";
 
     public static void main(String[] args) {
         Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
@@ -33,14 +26,14 @@ public class ButtonEncryption {
             return;
         }
 
-        certPath = args[0];
-        keyPath = args[1];
-        paypalCertPath = args[2];
-        keyPass = args[3];
-        cmdText = args[4];
-        output = args[5];
+        String certPath = args[0];
+        String keyPath = args[1];
+        String paypalCertPath = args[2];
+        String keyPass = args[3];
+        String cmdText = args[4];
+        String output = args[5];
         String stage = "";
-        if (args.length == 7)
+        if (args.length == 7) // 'sandbox' is the only value that is supported
             stage = args[6] + ".";
 
         try {
