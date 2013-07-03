@@ -27,7 +27,9 @@ public class ButtonEncryption {
             System.out.println("  CmdTxt:      The button command, eg: 'cmd=_xclick,business=...'");
             System.out.println("  OutputFile:  File where the html will get written");
             System.out.println("  Sandbox:     Optional. Put 'sandbox' here to test on sandbox accounts, or leave blank for live testing.\n");
-            System.out.println("For example:\n  sbt 'run-main ButtonEncryption my-pubcert.pem my-prvkey.p12 paypal_pubcert.pem password cmd=_xclick,business=x@test.com,amount=23.00,currency_code=USD,item_name=todos son asi,cert_id=ZWTMUVWGGH8T8\" java_bn.html'");
+            System.out.println("For example:\n  sbt 'run-main ButtonEncryption my-pubcert.pem my-prvkey.p12 paypal_pubcert.pem " +
+                    "password cmd=_xclick,business=x@test.com,amount=23.00,currency_code=USD,item_name=todos " +
+                    "son asi,cert_id=ZWTMUVWGGH8T8\" java_bn.html'");
             return;
         }
 
