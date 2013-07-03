@@ -43,14 +43,11 @@ public class ButtonEncryption {
 
         try {
             ClientSide clientSide = new ClientSide(keyPath, certPath, paypalCertPath, keyPass);
-
             String result = clientSide.getButtonEncryptionValue(cmdText);
-
-            File outputFile = new File(output);
-            if (outputFile.exists())
-                outputFile.delete();
-
             if (result != null && !result.equals("")) {
+                File outputFile = new File(output);
+                if (outputFile.exists())
+                    outputFile.delete();
                 try {
                     OutputStream fout = new FileOutputStream(output);
                     OutputStream bout = new BufferedOutputStream(fout);
@@ -72,7 +69,7 @@ public class ButtonEncryption {
                     out.flush();  // Don't forget to flush!
                     out.close();
                 } catch (UnsupportedEncodingException e) {
-                    System.out.println("This VM does not support the ASCII character set.");
+                    System.out.println("This Java VM does not support the ASCII character set.");
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
                 }
