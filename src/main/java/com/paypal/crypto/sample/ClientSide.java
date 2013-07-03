@@ -29,26 +29,25 @@ import org.bouncycastle.cms.CMSException;
 import org.bouncycastle.cms.CMSProcessableByteArray;
 import org.bouncycastle.cms.CMSSignedData;
 import org.bouncycastle.cms.CMSSignedDataGenerator;
-import org.bouncycastle.openssl.PEMReader;
 import org.bouncycastle.util.encoders.Base64;
 
 /**
  */
-public class ClientSide 
+public class ClientSide
 {
 	private String 	keyPath;
 	private String 	certPath;
 	private String 	paypalCertPath;
 	private String 	keyPass;
 
-	public ClientSide( String keyPath, String certPath, String paypalCertPath, String keyPass )
+	public ClientSide( String keyPath, String certPath, String payPalCertPath, String keyPass )
 	{
 		this.keyPath = keyPath;
 		this.certPath = certPath;
-		this.paypalCertPath = paypalCertPath;
+		this.paypalCertPath = payPalCertPath;
 		this.keyPass = keyPass;
-	}	
-	
+	}
+
 	public String getButtonEncryptionValue(
 		String _data,
 		String _privateKeyPath,
@@ -64,7 +63,7 @@ public class ClientSide
 			NoSuchAlgorithmException,
 			NoSuchProviderException,
 			CertStoreException,
-			CMSException 
+			CMSException
 	{
 		_data = _data.replace(',', '\n');
 		CertificateFactory cf = CertificateFactory.getInstance("X509", "BC");
@@ -74,9 +73,9 @@ public class ClientSide
 		ks.load( new FileInputStream(_privateKeyPath), _keyPass.toCharArray() );
 
 		String keyAlias = null;
-		Enumeration aliases = ks.aliases();
+		Enumeration<String> aliases = ks.aliases();
 		while (aliases.hasMoreElements()) {
-			keyAlias = (String) aliases.nextElement();
+			keyAlias = aliases.nextElement();
 		}
 
 		PrivateKey privateKey = (PrivateKey) ks.getKey( keyAlias, _keyPass.toCharArray() );
@@ -89,13 +88,13 @@ public class ClientSide
 
 		// Create the Data
 		byte[] data = _data.getBytes();
-		
+
 		// Sign the Data with my signing only key pair
 		CMSSignedDataGenerator signedGenerator = new CMSSignedDataGenerator();
 
 		signedGenerator.addSigner( privateKey, certificate, CMSSignedDataGenerator.DIGEST_SHA1 );
 
-		ArrayList certList = new ArrayList();
+		ArrayList<X509Certificate> certList = new ArrayList<X509Certificate>();
 		certList.add(certificate);
 		CertStore certStore = CertStore.getInstance( "Collection", new CollectionCertStoreParameters(certList) );
 		signedGenerator.addCertificatesAndCRLs(certStore);
@@ -106,7 +105,7 @@ public class ClientSide
 		System.out.println( "CMSProcessableByteArray contains [" + baos.toString() + "]" );
 
 		CMSSignedData signedData = signedGenerator.generate(cmsByteArray, true, "BC");
-		
+
 		byte[] signed = signedData.getEncoded();
 
 		CMSEnvelopedDataGenerator envGenerator = new CMSEnvelopedDataGenerator();
@@ -116,20 +115,20 @@ public class ClientSide
 
 		byte[] pkcs7Bytes = envData.getEncoded();
 
-		
+
 		return new String( DERtoPEM(pkcs7Bytes, "PKCS7") );
 
 	}
 
-	public static byte[] DERtoPEM(byte[] bytes, String headfoot) 
+	public static byte[] DERtoPEM(byte[] bytes, String headfoot)
 	{
 		ByteArrayOutputStream pemStream = new ByteArrayOutputStream();
 		PrintWriter writer = new PrintWriter(pemStream);
-		
+
 		byte[] stringBytes = Base64.encode(bytes);
-		
+
 		System.out.println("Converting " + stringBytes.length + " bytes");
-		
+
 		String encoded = new String(stringBytes);
 
 		if (headfoot != null) {
