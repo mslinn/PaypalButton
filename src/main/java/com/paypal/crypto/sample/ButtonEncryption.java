@@ -44,7 +44,7 @@ public class ButtonEncryption {
         try {
             ClientSide clientSide = new ClientSide(keyPath, certPath, paypalCertPath, keyPass);
 
-            String result = clientSide.getButtonEncryptionValue(cmdText, keyPath, certPath, paypalCertPath, keyPass);
+            String result = clientSide.getButtonEncryptionValue(cmdText);
 
             File outputFile = new File(output);
             if (outputFile.exists())

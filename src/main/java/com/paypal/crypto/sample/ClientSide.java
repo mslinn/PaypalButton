@@ -25,20 +25,15 @@ public class ClientSide {
         this.keyPass = keyPass;
     }
 
-    public String getButtonEncryptionValue(
-            String _data,
-            String _privateKeyPath,
-            String _certPath,
-            String _payPalCertPath,
-            String _keyPass)
-            throws IOException, CertificateException, KeyStoreException, UnrecoverableKeyException, InvalidAlgorithmParameterException,
-                   NoSuchAlgorithmException, NoSuchProviderException, CertStoreException, CMSException {
+    public String getButtonEncryptionValue(String _data) throws IOException, CertificateException, KeyStoreException,
+            UnrecoverableKeyException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, NoSuchProviderException,
+            CertStoreException, CMSException {
         _data = _data.replace(',', '\n');
         CertificateFactory cf = CertificateFactory.getInstance("X509", "BC");
 
-        // Read the Private Key
+        // Read the private iey
         KeyStore ks = KeyStore.getInstance("PKCS12", "BC");
-        ks.load(new FileInputStream(_privateKeyPath), _keyPass.toCharArray());
+        ks.load(new FileInputStream(keyPath), keyPass.toCharArray());
 
         String keyAlias = null;
         Enumeration<String> aliases = ks.aliases();
@@ -46,9 +41,9 @@ public class ClientSide {
             keyAlias = aliases.nextElement();
         }
 
-        PrivateKey privateKey = (PrivateKey) ks.getKey(keyAlias, _keyPass.toCharArray());
-        X509Certificate certificate = (X509Certificate) cf.generateCertificate(new FileInputStream(_certPath));
-        X509Certificate payPalCert = (X509Certificate) cf.generateCertificate(new FileInputStream(_payPalCertPath));
+        PrivateKey privateKey = (PrivateKey) ks.getKey(keyAlias, keyPass.toCharArray());
+        X509Certificate certificate = (X509Certificate) cf.generateCertificate(new FileInputStream(certPath));
+        X509Certificate payPalCert = (X509Certificate) cf.generateCertificate(new FileInputStream(paypalCertPath));
 
         byte[] data = _data.getBytes();
 
