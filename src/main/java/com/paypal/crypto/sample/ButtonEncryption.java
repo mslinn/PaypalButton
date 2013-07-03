@@ -52,21 +52,14 @@ public class ButtonEncryption {
                     OutputStream fout = new FileOutputStream(output);
                     OutputStream bout = new BufferedOutputStream(fout);
                     OutputStreamWriter out = new OutputStreamWriter(bout, "US-ASCII");
-
-                    out.write("<form action=\"https://www.");
-                    out.write(stage);
-                    out.write("paypal.com/cgi-bin/webscr\" method=\"post\">");
-                    out.write("<input type=\"hidden\" name=\"cmd\" value=\"_s-xclick\">");
-                    out.write("<input type=\"image\" src=\"https://www.");
-                    out.write(stage);
-                    out.write("paypal.com/en_US/i/btn/x-click-but23.gif\" border=\"0\" name=\"submit\" ");
-                    out.write("alt=\"Make payments with PayPal - it's fast, free and secure!\">");
-                    out.write("<input type=\"hidden\" name=\"encrypted\" value=\"");
-                    out.write(result);
-                    out.write("\">");
+                    out.write("<form action=\"https://www." + stage + "paypal.com/cgi-bin/webscr\" method=\"post\">");
+                    out.write("  <input type=\"hidden\" name=\"cmd\" value=\"_s-xclick\">");
+                    out.write("  <input type=\"image\" src=\"https://www." + stage +
+                                "paypal.com/en_US/i/btn/x-click-but23.gif\" border=\"0\" name=\"submit\" ");
+                    out.write("    alt=\"Make payments with PayPal - it's fast, free and secure!\">");
+                    out.write("  <input type=\"hidden\" name=\"encrypted\" value=\"" + result + "\">");
                     out.write("</form>");
-
-                    out.flush();  // Don't forget to flush!
+                    out.flush();
                     out.close();
                 } catch (UnsupportedEncodingException e) {
                     System.out.println("This Java VM does not support the ASCII character set.");
